@@ -10,5 +10,6 @@ python main.py
 
 Примеры запросов:
 nslookup type=A yandex.com 127.0.0.1
+
 nslookup type=NS yandex.ru 127.0.0.1
 
