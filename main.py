@@ -27,6 +27,7 @@ class Server:
             self.server.sendto(response, client_address)
 
     def clearing_cache(self, time_now):
+        self.cache.remove_expired_records()
         if time_now - self.cache.TIME_CACHE_CLEANED > cache_update_periodicity:
             self.cache.remove_expired_records()
 
@@ -58,7 +59,9 @@ class Server:
                 continue
             response = dnslib.DNSRecord.parse(byte_response)
 
-        self.cache.add_records(response.rr)
+        self.cache.add_rr_records(response.rr)
+        self.cache.add_auth_records(response.auth)
+        self.cache.add_ar_records(response.ar)
         print("Response from public dns")
         return byte_response
 
